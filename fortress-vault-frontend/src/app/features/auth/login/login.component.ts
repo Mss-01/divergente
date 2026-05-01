@@ -1,5 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Auth, user } from '@angular/fire/auth';
+import { take } from 'rxjs/operators';
 import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
@@ -14,11 +16,6 @@ import { AuthService } from '../../../core/services/auth.service';
                      px-6 h-16 bg-slate-950 border-b border-white/10">
         <div class="flex items-center gap-sm">
           <img src="logo.png" alt="Divergente" class="h-10 w-auto object-contain" />
-        </div>
-        <div class="flex items-center gap-md text-indigo-400">
-          <button class="hover:bg-white/5 transition-all p-xs rounded-full">
-            <span class="material-symbols-outlined">help_outline</span>
-          </button>
         </div>
       </header>
 
@@ -47,16 +44,16 @@ import { AuthService } from '../../../core/services/auth.service';
               <div class="h-px flex-grow bg-white/5"></div>
             </div>
 
-            <!-- Redirect notice while processing -->
+            <!-- Loading state -->
             @if (loading) {
               <div class="w-full flex items-center justify-center gap-3 py-3 mb-4
                           bg-primary/5 border border-primary/20 rounded-lg">
                 <span class="material-symbols-outlined text-primary animate-spin">progress_activity</span>
-                <span class="text-body-md text-on-surface-variant">Completing sign in...</span>
+                <span class="text-body-md text-on-surface-variant">Signing you in...</span>
               </div>
             }
 
-            <!-- Error message -->
+            <!-- Error -->
             @if (errorMsg) {
               <div class="w-full mb-4 p-sm bg-error-container/20 border border-error/50
                           rounded-lg text-error text-body-md text-left">
@@ -64,7 +61,7 @@ import { AuthService } from '../../../core/services/auth.service';
               </div>
             }
 
-            <!-- Google Sign-In -->
+            <!-- Google Sign-In button -->
             @if (!loading) {
               <button (click)="signIn()"
                       class="w-full bg-white text-gray-900 text-title-md h-12 rounded-DEFAULT
@@ -95,7 +92,6 @@ import { AuthService } from '../../../core/services/auth.service';
         <div class="flex flex-wrap justify-center gap-md">
           <a href="#" class="text-slate-500 hover:text-indigo-400 transition-colors text-xs uppercase tracking-widest">Privacy Policy</a>
           <a href="#" class="text-slate-500 hover:text-indigo-400 transition-colors text-xs uppercase tracking-widest">Terms of Service</a>
-          <a href="#" class="text-slate-500 hover:text-indigo-400 transition-colors text-xs uppercase tracking-widest">Security Architecture</a>
         </div>
         <div class="text-slate-500 text-xs mt-2">© 2025 Divergente. Encrypted &amp; Secure.</div>
       </footer>
@@ -104,37 +100,46 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class LoginComponent implements OnInit {
   private authService = inject(AuthService);
+  private fireAuth    = inject(Auth);
   private router      = inject(Router);
 
-  loading  = false;
+  loading  = true;
   errorMsg = '';
 
-  ngOnInit(): void {
-    // Handle the redirect result when Google sends the user back
-    this.loading = true;
-    this.authService.handleRedirectResult().subscribe({
-      next: (loggedIn) => {
-        if (loggedIn) {
-          this.router.navigate(['/dashboard']);
-        } else {
-          this.loading = false;
-        }
-      },
-      error: (err) => {
-        this.loading  = false;
-        // Ignore popup-closed errors — user just hasn't signed in yet
-        if (err?.code !== 'auth/popup-closed-by-user') {
-          this.errorMsg = err?.message ?? 'Authentication failed. Please try again.';
-        }
-      },
+  async ngOnInit(): Promise<void> {
+    // 1. Check if already logged in (e.g. session still active)
+    user(this.fireAuth).pipe(take(1)).subscribe(async currentUser => {
+      if (currentUser) {
+        this.router.navigate(['/dashboard']);
+        return;
+      }
+
+      // 2. Check if returning from a redirect sign-in
+      const redirectUser = await this.authService.checkRedirectResult();
+      if (redirectUser) {
+        this.router.navigate(['/dashboard']);
+        return;
+      }
+
+      // 3. No session, no redirect — show the login button
+      this.loading = false;
     });
   }
 
   signIn(): void {
+    this.loading  = true;
     this.errorMsg = '';
-    // signInWithRedirect navigates away — no loading state needed
+
     this.authService.signInWithGoogle().subscribe({
+      next: (result) => {
+        if (result === 'popup_success') {
+          // Popup worked — navigate immediately
+          this.router.navigate(['/dashboard']);
+        }
+        // If 'redirect_initiated' — page will reload, ngOnInit handles it
+      },
       error: (err) => {
+        this.loading  = false;
         this.errorMsg = err?.message ?? 'Authentication failed. Please try again.';
       },
     });

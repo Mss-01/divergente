@@ -1,8 +1,16 @@
 import { Injectable, inject } from '@angular/core';
-import { Auth, GoogleAuthProvider, signInWithRedirect, getRedirectResult, signOut, user } from '@angular/fire/auth';
+import {
+  Auth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
+  signOut,
+  user
+} from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import { Observable, from, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { Observable, from } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { UserProfile } from '../models/user.model';
 
 @Injectable({ providedIn: 'root' })
@@ -22,17 +30,56 @@ export class AuthService {
     return u ? u.getIdToken() : null;
   }
 
-  /** Uses redirect instead of popup — works on all browsers without popup blockers */
-  signInWithGoogle(): Observable<void> {
+  /**
+   * Try popup first. If blocked by browser, fall back to redirect.
+   */
+  signInWithGoogle(): Observable<'popup_success' | 'redirect_initiated'> {
     const provider = new GoogleAuthProvider();
-    return from(signInWithRedirect(this.auth, provider)).pipe(map(() => void 0));
+    return new Observable(observer => {
+      signInWithPopup(this.auth, provider)
+        .then(() => {
+          observer.next('popup_success');
+          observer.complete();
+        })
+        .catch(err => {
+          // Popup was blocked or closed — fall back to redirect
+          if (
+            err?.code === 'auth/popup-blocked' ||
+            err?.code === 'auth/popup-closed-by-user' ||
+            err?.code === 'auth/cancelled-popup-request'
+          ) {
+            signInWithRedirect(this.auth, provider)
+              .then(() => {
+                observer.next('redirect_initiated');
+                observer.complete();
+              })
+              .catch(redirectErr => observer.error(redirectErr));
+          } else {
+            observer.error(err);
+          }
+        });
+    });
   }
 
-  /** Call this on app init to handle the redirect result after Google login */
-  handleRedirectResult(): Observable<boolean> {
-    return from(getRedirectResult(this.auth)).pipe(
-      map(result => !!result?.user)
-    );
+  /**
+   * Check if we're returning from a redirect sign-in.
+   * Returns the user if found, null otherwise.
+   */
+  async checkRedirectResult(): Promise<UserProfile | null> {
+    try {
+      const result = await getRedirectResult(this.auth);
+      if (result?.user) {
+        return {
+          uid:         result.user.uid,
+          email:       result.user.email,
+          displayName: result.user.displayName,
+          photoURL:    result.user.photoURL,
+        };
+      }
+      return null;
+    } catch {
+      return null;
+    }
   }
 
   signOut(): Observable<void> {
