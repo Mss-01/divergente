@@ -1,0 +1,20 @@
+# Firebase credentials — NEVER commit these
+fortress-vault-api/*.json
+fortress-vault-api/.env
+fortress-vault-api/bin/
+
+
+# Angular
+fortress-vault-frontend/node_modules/
+fortress-vault-frontend/dist/
+fortress-vault-frontend/.angular/
+
+# Go
+fortress-vault-api/bin/
+*.exe
+*.test
+
+# Environment files
+.env
+*.env.local
+

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Fortress Vault - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#d3e4fe",
+                    "inverse-on-surface": "#2f3039",
+                    "inverse-primary": "#2e4edc",
+                    "tertiary-fixed-dim": "#ffb692",
+                    "secondary-fixed-dim": "#b7c8e1",
+                    "primary-fixed": "#dee1ff",
+                    "surface": "#12131b",
+                    "tertiary-container": "#ba4e00",
+                    "surface-bright": "#383942",
+                    "surface-tint": "#bac3ff",
+                    "surface-container-lowest": "#0c0e16",
+                    "on-background": "#e2e1ed",
+                    "on-secondary": "#213145",
+                    "on-error-container": "#ffdad6",
+                    "on-primary-fixed": "#001159",
+                    "on-tertiary": "#562000",
+                    "primary-container": "#4361ee",
+                    "on-secondary-fixed-variant": "#38485d",
+                    "on-tertiary-container": "#fff1eb",
+                    "surface-dim": "#12131b",
+                    "secondary-container": "#3a4a5f",
+                    "surface-container-low": "#1a1b23",
+                    "outline": "#8e8fa1",
+                    "secondary": "#b7c8e1",
+                    "primary": "#bac3ff",
+                    "on-secondary-fixed": "#0b1c30",
+                    "surface-container": "#1e1f28",
+                    "inverse-surface": "#e2e1ed",
+                    "error-container": "#93000a",
+                    "on-tertiary-fixed-variant": "#793000",
+                    "error": "#ffb4ab",
+                    "on-tertiary-fixed": "#341100",
+                    "surface-variant": "#33343d",
+                    "surface-container-high": "#282932",
+                    "on-surface": "#e2e1ed",
+                    "on-surface-variant": "#c4c5d7",
+                    "primary-fixed-dim": "#bac3ff",
+                    "on-error": "#690005",
+                    "on-primary": "#00218d",
+                    "outline-variant": "#444655",
+                    "tertiary": "#ffb692",
+                    "on-primary-fixed-variant": "#0031c4",
+                    "on-primary-container": "#f4f2ff",
+                    "background": "#12131b",
+                    "surface-container-highest": "#33343d",
+                    "on-secondary-container": "#a9bad3",
+                    "tertiary-fixed": "#ffdbcb"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "xl": "32px",
+                    "xs": "4px",
+                    "md": "16px",
+                    "lg": "24px",
+                    "gutter": "24px",
+                    "sm": "12px",
+                    "margin": "32px"
+            },
+            "fontFamily": {
+                    "title-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "title-md": ["16px", {"lineHeight": "24px", "letterSpacing": "0.15px", "fontWeight": "500"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.25px", "fontWeight": "400"}],
+                    "display-lg": ["57px", {"lineHeight": "64px", "letterSpacing": "-0.25px", "fontWeight": "400"}],
+                    "headline-sm": ["24px", {"lineHeight": "32px", "letterSpacing": "0px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0.5px", "fontWeight": "400"}],
+                    "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "500"}]
+            }
+          }
+        }
+      }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-screen w-64 border-r border-slate-800 bg-slate-950 dark:bg-slate-950 shadow-none z-50 flex flex-col py-6">
+<div class="px-6 mb-8 flex items-center gap-3">
+<span class="material-symbols-outlined text-indigo-500 text-3xl">shield</span>
+<div>
+<h1 class="font-headline-sm text-headline-sm text-indigo-500 font-bold tracking-tighter">Fortress Vault</h1>
+<p class="font-label-sm text-label-sm text-slate-400">Enterprise Secure</p>
+</div>
+</div>
+<button class="mx-6 mb-6 flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-4 rounded-lg font-title-md text-title-md transition-colors shadow-sm">
+<span class="material-symbols-outlined text-sm">add</span>
+            New Entry
+        </button>
+<ul class="flex flex-col flex-1 px-4 gap-1 font-inter text-sm font-medium tracking-wide">
+<!-- Active Tab: Dashboard -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-indigo-400 bg-indigo-500/10 border-r-2 border-indigo-500 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+                    Dashboard
+                </a>
+</li>
+<!-- Inactive Tabs -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-900 transition-colors duration-200 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">lock</span>
+                    Vault Management
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-900 transition-colors duration-200 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">security</span>
+                    Security Audit
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-900 transition-colors duration-200 active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">settings</span>
+                    Settings
+                </a>
+</li>
+</ul>
+<div class="mt-auto px-6 pt-6 border-t border-slate-800 flex items-center gap-3">
+<img alt="User profile avatar" class="w-10 h-10 rounded-full border border-slate-700 object-cover" data-alt="A close-up, professional headshot of a person looking forward, bathed in soft, high-key studio lighting against a dark, minimalist background. The aesthetic is clean, modern, and corporate, fitting for an enterprise software profile picture. The dark background ensures the subject stands out sharply." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-CY7GqO1TDyqJ6aQdMrRGDm2zoCAemPglY8y8S0eScFpX8IA3gE6w9KuCMy9ZtSuVsijiBhUkSi89zqyzOUNuAVBp1RgpnXFDuTYDOOBgrCvmcS9I3QEEOCDJ32vrycQatd6UlM4VRhs3y0QbpPxelHVbIhCKRxh9efDuNdjoVLF0Vttiaffu6RoaCRWdXj6NgzA9ubOb2AqNShfGOAY_gu-xw7xMxAfB7qow1FnJWM4MR7a-64RigPkkJeReynl5VKJIFxq2pfrv"/>
+<div>
+<p class="font-title-md text-title-md text-on-surface">Alex Carter</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Admin</p>
+</div>
+</div>
+</nav>
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 z-40 border-b border-slate-800 bg-slate-950/80 backdrop-blur-md shadow-none flex justify-between items-center w-[calc(100%-16rem)] ml-64 px-8 h-16">
+<div class="flex-1 flex items-center">
+<!-- Search Bar: on_left -->
+<div class="relative w-96 focus-within:ring-2 focus-within:ring-indigo-500/50 rounded-lg">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+<input class="w-full bg-slate-900/50 border border-slate-700 rounded-lg py-2 pl-10 pr-4 text-sm text-on-surface placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors font-inter text-sm" placeholder="Search vault..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4 text-indigo-500 dark:text-indigo-400 font-inter text-sm">
+<button class="p-2 text-slate-400 hover:text-indigo-300 hover:bg-slate-900/50 rounded-lg transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="p-2 text-slate-400 hover:text-indigo-300 hover:bg-slate-900/50 rounded-lg transition-colors">
+<span class="material-symbols-outlined">help</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-24 px-margin pb-margin min-h-screen">
+<div class="max-w-7xl mx-auto space-y-gutter">
+<header class="mb-lg">
+<h2 class="font-headline-sm text-headline-sm text-on-surface mb-xs">Dashboard Overview</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Monitor your vault security and application access.</p>
+</header>
+<!-- Top Row: Metric Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Card A: Total Applications -->
+<div class="bg-surface-container border border-white/5 rounded-xl p-lg relative overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+<div class="flex justify-between items-start mb-md relative z-10">
+<div class="p-sm bg-surface-container-highest rounded-lg border border-white/5">
+<span class="material-symbols-outlined text-primary text-xl">apps</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-high px-2 py-1 rounded-full border border-white/5">+2 this week</span>
+</div>
+<div class="relative z-10">
+<p class="font-body-md text-body-md text-on-surface-variant mb-xs">Total Applications</p>
+<p class="font-display-lg text-display-lg text-on-surface">42</p>
+</div>
+</div>
+<!-- Card B: Security Health -->
+<div class="bg-surface-container border border-white/5 rounded-xl p-lg relative overflow-hidden group">
+<div class="flex justify-between items-start mb-md">
+<div class="p-sm bg-surface-container-highest rounded-lg border border-white/5">
+<span class="material-symbols-outlined text-tertiary-fixed text-xl">health_and_safety</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary bg-primary/10 px-2 py-1 rounded-full border border-primary/20">Good</span>
+</div>
+<div class="flex items-center gap-lg">
+<div class="relative w-24 h-24 flex-shrink-0">
+<!-- CSS Donut Chart approximation using conic-gradient -->
+<div class="w-full h-full rounded-full" style="background: conic-gradient(
+                                #4ade80 0% 70%, 
+                                #fb923c 70% 90%, 
+                                #f87171 90% 100%
+                            );"></div>
+<div class="absolute inset-2 bg-surface-container rounded-full flex items-center justify-center">
+<span class="font-title-md text-title-md text-on-surface">85%</span>
+</div>
+</div>
+<div class="flex-1 space-y-2">
+<div class="flex items-center justify-between font-label-sm text-label-sm">
+<div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[#4ade80]"></span><span class="text-on-surface-variant">Strong</span></div>
+<span class="text-on-surface">29</span>
+</div>
+<div class="flex items-center justify-between font-label-sm text-label-sm">
+<div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[#fb923c]"></span><span class="text-on-surface-variant">Medium</span></div>
+<span class="text-on-surface">9</span>
+</div>
+<div class="flex items-center justify-between font-label-sm text-label-sm">
+<div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[#f87171]"></span><span class="text-on-surface-variant">Weak</span></div>
+<span class="text-on-surface">4</span>
+</div>
+</div>
+</div>
+<div class="mt-md pt-sm border-t border-white/5">
+<p class="font-body-md text-body-md text-on-surface-variant mb-xs">Security Health</p>
+</div>
+</div>
+<!-- Card C: Critical Actions -->
+<div class="bg-surface-container border border-error/20 rounded-xl p-lg relative overflow-hidden group shadow-[0_0_15px_rgba(255,180,171,0.05)]">
+<div class="absolute inset-0 bg-gradient-to-br from-error/5 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-300"></div>
+<div class="flex justify-between items-start mb-md relative z-10">
+<div class="p-sm bg-error-container rounded-lg border border-error/20">
+<span class="material-symbols-outlined text-error text-xl">warning</span>
+</div>
+<span class="font-label-sm text-label-sm text-error bg-error/10 px-2 py-1 rounded-full border border-error/20">Action Required</span>
+</div>
+<div class="relative z-10">
+<p class="font-body-md text-body-md text-on-surface-variant mb-xs">Critical Actions (&lt; 7 Days)</p>
+<div class="flex items-end gap-3 mb-4">
+<p class="font-display-lg text-display-lg text-error">3</p>
+<p class="font-body-md text-body-md text-on-surface-variant pb-2">Expiring soon</p>
+</div>
+<button class="w-full bg-surface-container-high hover:bg-surface-bright text-on-surface font-title-md text-title-md py-2 rounded-lg border border-white/5 transition-colors flex items-center justify-center gap-2">
+                            Review Now
+                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Applications Status Table Area -->
+<div class="bg-surface-container border border-white/5 rounded-xl overflow-hidden mt-xl">
+<!-- Table Toolbar -->
+<div class="p-lg border-b border-white/5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-surface-container-low">
+<div>
+<h3 class="font-title-md text-title-md text-on-surface">Applications Status</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">Manage and audit individual application credentials.</p>
+</div>
+<div class="flex items-center gap-3 w-full sm:w-auto">
+<div class="relative focus-within:ring-2 focus-within:ring-primary/50 rounded-md w-full sm:w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="w-full bg-surface-container-high border border-white/10 rounded-md py-1.5 pl-9 pr-3 text-sm text-on-surface placeholder-on-surface-variant focus:outline-none focus:border-primary transition-colors font-body-md" placeholder="Filter apps..." type="text"/>
+</div>
+<button class="p-1.5 bg-surface-container-high border border-white/10 rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-bright transition-colors" title="Filter options">
+<span class="material-symbols-outlined text-sm">filter_list</span>
+</button>
+</div>
+</div>
+<!-- Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-white/5 bg-surface-container-lowest/50">
+<th class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider py-3 px-lg font-semibold">Application</th>
+<th class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider py-3 px-lg font-semibold">Identity</th>
+<th class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider py-3 px-lg font-semibold">Strength</th>
+<th class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider py-3 px-lg font-semibold">Expiration</th>
+<th class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider py-3 px-lg font-semibold text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/5">
+<!-- Row 1: Strong -->
+<tr class="hover:bg-surface-container-high transition-colors group">
+<td class="py-md px-lg">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-md bg-surface-bright flex items-center justify-center border border-white/10 flex-shrink-0 text-on-surface">
+<span class="material-symbols-outlined text-sm">code</span>
+</div>
+<span class="font-title-md text-title-md text-on-surface">GitHub</span>
+</div>
+</td>
+<td class="py-md px-lg">
+<span class="font-body-md text-body-md text-on-surface-variant">alex.c@company.com</span>
+</td>
+<td class="py-md px-lg">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#4ade80]/10 text-[#4ade80] border border-[#4ade80]/20 font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-[#4ade80]"></span>
+                                        Strong
+                                    </span>
+</td>
+<td class="py-md px-lg">
+<div class="flex flex-col gap-1 w-32">
+<div class="flex justify-between font-label-sm text-label-sm">
+<span class="text-on-surface-variant">Secure</span>
+<span class="text-on-surface-variant">150y</span>
+</div>
+<div class="w-full h-1.5 bg-surface-bright rounded-full overflow-hidden">
+<div class="h-full bg-[#4ade80] rounded-full" style="width: 100%"></div>
+</div>
+</div>
+</td>
+<td class="py-md px-lg text-right">
+<button class="text-primary hover:text-primary-fixed opacity-0 group-hover:opacity-100 transition-all font-title-md text-title-md text-sm px-3 py-1 rounded border border-primary/20 hover:bg-primary/10">
+                                        Edit
+                                    </button>
+</td>
+</tr>
+<!-- Row 2: Medium -->
+<tr class="hover:bg-surface-container-high transition-colors group">
+<td class="py-md px-lg">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-md bg-surface-bright flex items-center justify-center border border-white/10 flex-shrink-0 text-on-surface">
+<span class="material-symbols-outlined text-sm">cloud</span>
+</div>
+<span class="font-title-md text-title-md text-on-surface">AWS Console</span>
+</div>
+</td>
+<td class="py-md px-lg">
+<span class="font-body-md text-body-md text-on-surface-variant">admin-prod</span>
+</td>
+<td class="py-md px-lg">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#fb923c]/10 text-[#fb923c] border border-[#fb923c]/20 font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-[#fb923c]"></span>
+                                        Medium
+                                    </span>
+</td>
+<td class="py-md px-lg">
+<div class="flex flex-col gap-1 w-32">
+<div class="flex justify-between font-label-sm text-label-sm">
+<span class="text-on-surface-variant">Aging</span>
+<span class="text-on-surface-variant">45d</span>
+</div>
+<div class="w-full h-1.5 bg-surface-bright rounded-full overflow-hidden">
+<div class="h-full bg-[#fb923c] rounded-full" style="width: 50%"></div>
+</div>
+</div>
+</td>
+<td class="py-md px-lg text-right">
+<button class="text-primary hover:text-primary-fixed opacity-0 group-hover:opacity-100 transition-all font-title-md text-title-md text-sm px-3 py-1 rounded border border-primary/20 hover:bg-primary/10">
+                                        Edit
+                                    </button>
+</td>
+</tr>
+<!-- Row 3: Weak/Expiring -->
+<tr class="hover:bg-surface-container-high transition-colors group bg-error/5">
+<td class="py-md px-lg">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-md bg-surface-bright flex items-center justify-center border border-error/30 flex-shrink-0 text-error">
+<span class="material-symbols-outlined text-sm">mail</span>
+</div>
+<span class="font-title-md text-title-md text-on-surface">Legacy Webmail</span>
+</div>
+</td>
+<td class="py-md px-lg">
+<span class="font-body-md text-body-md text-on-surface-variant">alex@old-domain.net</span>
+</td>
+<td class="py-md px-lg">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#f87171]/10 text-[#f87171] border border-[#f87171]/20 font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-[#f87171]"></span>
+                                        Weak
+                                    </span>
+</td>
+<td class="py-md px-lg">
+<div class="flex flex-col gap-1 w-32">
+<div class="flex justify-between font-label-sm text-label-sm">
+<span class="text-error">Critical</span>
+<span class="text-error font-bold">2d</span>
+</div>
+<div class="w-full h-1.5 bg-surface-bright rounded-full overflow-hidden">
+<div class="h-full bg-[#f87171] rounded-full" style="width: 10%"></div>
+</div>
+</div>
+</td>
+<td class="py-md px-lg text-right">
+<button class="text-error hover:text-error-container opacity-100 transition-all font-title-md text-title-md text-sm px-3 py-1 rounded border border-error/50 bg-error/10 hover:bg-error/20">
+                                        Rotate Now
+                                    </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+</body></html>
