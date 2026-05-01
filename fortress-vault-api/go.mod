@@ -1,6 +1,6 @@
 module fortress-vault-api
 
-go 1.26.1
+go 1.24.0
 
 require (
 	cloud.google.com/go/firestore v1.15.0
