@@ -9,6 +9,6 @@ export const environment = {
     appId:             '1:800516612885:web:12d04aaf8bba6cff4bbf1c',
     measurementId:     'G-VSLZBDYQCL',
   },
-  // Update this URL after deploying the backend on Render
+  // Backend API on Render
   apiUrl: 'https://divergente-api.onrender.com/api/v1',
 };
